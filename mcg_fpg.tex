@@ -195,31 +195,42 @@ The fundamental problem graph is then
 \begin{equation}
 F = (V_F,E_F).
 \end{equation}
-        If desired, the set of connection edges can be extracted by considering only edges whose endpoints are not in the same analysis block:
+        If desired, the set of connection edges can be extracted by considering only 
+        edges whose endpoints are not in the same analysis block:
 \begin{IEEEeqnarray*}{rCl}
 E_{F,\txt{con}} = &\{&(x,y) \in E_{F} \st \sim(x \in V_{A_i} \txt{ and } y \in V_{A_i}  \\
 & & \txt{for some } i \in I_F)\}.
 \end{IEEEeqnarray*}
 \end{description}
 
-This algorithm will always provide an FPG if one exists. If an FPG does not exist, the implementation reveals the limiting factors that prevent a valid FPG from being achieved.
+This algorithm will always provide an FPG if one exists. If an FPG does not exist, 
+the implementation reveals the limiting factors that prevent a valid FPG from being achieved.
 
 \subsection{Suggested Process for Appyling the FPG Algorithm}
 \label{ss:process}
 Section \ref{ss:obtaining FPG} provided an algorithm for obtaining an FPG from the given MCG. 
-The algorithm can be applied as part of a broader process in which the designer changes the problem formulation or the supplied analysis tools to attempt to obtain an FPG. The following steps detail the suggested procedure for obtaining an FPG:
+The algorithm can be applied as part of a broader process in which the designer changes 
+the problem formulation or the supplied analysis tools to attempt to obtain an FPG. The 
+following steps detail the suggested procedure for obtaining an FPG:
 \begin{enumerate}
 \item[\bf{(A)}] Begin with a set of inputs, analysis tools, objectives, and constraints.
 \item[\bf{(B)}] Build the MCG as described in Sec.~\ref{ss:MCG}.
-\item[\bf{(C)}] Set indegree limits for variable nodes representing local inputs as described in Sec.~\ref{s:indegree-outdegree} and Table \ref{t:variable node classification}.
-\item[\bf{(D)}] Run the FPG algorithm described in Sec.~\ref{ss:obtaining FPG}. If a valid FPG is unattainable:
-		\begin{enumerate}
-\item Change the MCG by adding analysis blocks and/or inputs, which means identifying new analysis tools to include in a potential MDAO workflow.
+\item[\bf{(C)}] Set indegree limits for variable nodes representing local inputs as 
+    described in Sec.~\ref{s:indegree-outdegree} and Table \ref{t:variable node classification}.
+\item[\bf{(D)}] Run the FPG algorithm described in Sec.~\ref{ss:obtaining FPG}. If a 
+    valid FPG is unattainable:
+\begin{enumerate}
+\item Change the MCG by adding analysis blocks and/or inputs, which means identifying new 
+    analysis tools to include in a potential MDAO workflow.
 \item Change indegree limits (see Table \ref{t:variable node classification}).
 \end{enumerate}
 \item[\bf{(E)}] Repeat from step (A) until an FPG is obtained.
 \end{enumerate}
-This process illustrates how the algorithm for obtaining a valid FPG can be applied. However, the process also serves to illustrate how a designer may revist the MCG after an FPG has already been produced. For example, if a designer desires to change an input to be multi-fidelity, new analysis blocks can be added to the original MCG, the indegree limits can be modified accordingly, and the algorithm can be applied again.
+This process illustrates how the algorithm for obtaining a valid FPG can be applied. 
+However, the process also serves to illustrate how a designer may revist the 
+MCG after an FPG has already been produced. For example, if a designer desires to 
+change an input to be multi-fidelity, new analysis blocks can be added to the original 
+MCG, the indegree limits can be modified accordingly, and the algorithm can be applied again.
 
 
 
@@ -227,7 +238,8 @@ This process illustrates how the algorithm for obtaining a valid FPG can be appl
 Once a suitable FPG has been obtained, the issue of how to structure a solution strategy 
 can be addressed. Similar to the way an MCG can be manipulated to form an FPG, an FPG can be
 further manipulated to form a PSG. To obtain an FPG from an MCG, analysis blocks and
-connection edges are eliminated to achieve a solvable problem. To obtain a PSG from an FPG, driver blocks and driven edges are added to describe the structure of the solution strategy being applied 
+connection edges are eliminated to achieve a solvable problem. To obtain a PSG from an FPG, 
+driver blocks and driven edges are added to describe the structure of the solution strategy being applied 
 to the problem. For example, Fig. \ref{f:sellar_psg} shows the PSG that solves the Sellar problem 
 with an MDF solution strategy. The PSG contains two driver blocks, one for the solver that 
 ensures compatibility and another for the optimizer that selects the design variables. 
@@ -236,7 +248,8 @@ ensures compatibility and another for the optimizer that selects the design vari
     \includegraphics[width=3.0in]{images/sellar_mdf_psg}
     \end{center}
     \vspace{-10pt}
-    \caption{Example PSG for solving the Sellar problem with MDF strategy. Driver blocks are indicated by dashed boxes and driven edges are indicated by dashed lines.}
+    \caption{Example PSG for solving the Sellar problem with MDF strategy. 
+    Driver blocks are indicated by dashed boxes and driven edges are indicated by dashed lines.}
     \label{f:sellar_psg}
 \end{figure}
 
@@ -255,8 +268,10 @@ follows different rules than the data connections graph.
 On the other hand, the information described by the gray edges, 
 the data interchange information, is equivalent to the information in the PSG. XDSM presents this 
 information in a more compact and human readable manner by aggregating groups of related variables
-into combined nodes. The more verbose form presented in a PSG is less human readable but more easily 
-machine readable as a consequence of the formal graph structure that can be implemented and interpreted by commonly available software for graph manipulations. 
+into combined nodes and applying a diagonal layout. The more verbose form presented in a 
+PSG is less human readable but more easily machine readable as a consequence of the formal 
+graph structure that can be implemented and interpreted by commonly available software 
+for graph manipulations. 
 
 
 
